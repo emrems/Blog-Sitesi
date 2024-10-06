@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block body %}
+
+<form method="POST">
+    {% csrf_token %}
+    
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="control-group">
+                <div class="form-group floating-label-form-group controls">
+                    {{ form.name.label_tag }}
+                    {% render_field form.name class="form-control" %}
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="control-group">
+                <div class="form-group floating-label-form-group controls">
+                    {{ form.email.label_tag }}
+                    {% render_field form.email class="form-control" %}
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="control-group">
+                <div class="form-group floating-label-form-group controls">
+                    {{ form.phone.label_tag }}
+                    {% render_field form.phone class="form-control" %}
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="control-group">
+                <div class="form-group floating-label-form-group controls">
+                    {{ form.message.label_tag }}
+                    {% render_field form.message class="form-control" %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="success"></div>
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary" id="sendMessageButton">GÖNDER</button>
+            </div>
+        </div>
+    </div>
+</form>
+<hr>
+<style>
+   
+    
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+        background-color: #f5f5f5;
+    }
+    .contact-info {
+        text-align: center;
+        margin-top: 50px;
+    }
+    .contact-info h2 {
+        margin-bottom: 20px;
+    }
+    .contact-info p {
+        font-size: 18px;
+    }
+    .social-links {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+    }
+    .social-links a {
+        margin: 0 10px;
+        font-size: 24px;
+        color: #333;
+    }
+
+</style>
+<div class="contact-info">
+    <h2>Bize Ulaşın</h2>
+    <p>İletişim için aşağıdaki kanallardan bize ulaşabilirsiniz:</p>
+    <div class="social-links">
+        <div class="social-links">
+            <a href="https://www.instagram.com/sizin_instagram_hesabınız" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://wa.me/sizin_whatsapp_numaranız" target="_blank"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://www.facebook.com/sizin_facebook_hesabınız" target="_blank"><i class="fab fa-facebook"></i></a>
+            <a href="https://twitter.com/sizin_twitter_hesabınız" target="_blank"><i class="fab fa-twitter"></i></a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

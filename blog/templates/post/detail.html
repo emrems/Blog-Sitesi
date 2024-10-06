@@ -1,0 +1,48 @@
+            
+
+            {% extends 'base.html'%}
+            
+
+            {% block body%}
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6 col-md-4">
+                        <div class="thumbnail">
+                                    {% if post.image %}
+                                        <img src="{{ post.image.url }}" class="img-responsive">
+                                    {% endif %}
+                            <div class="caption">
+                                <h3>{{ post.title }} <small>{{ post.publishing_date}}</small></h3>
+                                {% if post.user %}
+                                        {% if post.user.get_full_name %}
+                                            <h4>yazar: {{ post.user.get_full_name }}</h4>
+                                        {% else %}
+                                            <h4>yazar: {{ post.user.username }}</h4>
+                                        {% endif %}
+                                    {% else %}
+                                        <h4>yazar: Bilinmeyen yazar</h4>
+                                    {% endif %}
+                                <p>{{ post.content}}</p>
+                                <p><a href="{% url 'post:detail' slug=post.slug %}" class="btn btn-primary" role="button">detay sayfasına git</a></p>
+                                {% if request.user.is_authenticated %}
+                                    <a href="{% url 'post:update' slug=post.slug %}" class="btn btn-primary" role="button">güncelle</a>
+                                    <a href="{% url 'post:delete' slug=post.slug %}" class="btn btn-primary" role="button">sil</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <br><br><br>
+                      <h3>Buraya yorum ekleyebilirsiniz:</h3>  
+                      {% include 'post/comment.html' %}
+                      <hr>
+                      {% for comment in post.comments.all %}
+
+                      <h4>{{ comment.name }}| <small>{{ comment.created_date|timesince  }} önce</small></h4> 
+                      <p>{{ comment.content|linebreaks}}</p>
+                      <hr>
+
+                      {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            {% endblock %}

@@ -1,0 +1,113 @@
+{% extends 'base.html'%}
+{% block body %}
+<style>
+    
+    @keyframes fade {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0; }
+    }
+
+    .fade-in-out {
+        animation: fade 3s infinite; /* 3 saniyede bir tekrar etmesini sağlar, süreyi isteğinize göre ayarlayabilirsiniz */
+    }
+
+
+    .carousel {
+        display: flex;
+        overflow: hidden;
+    }
+
+    .carousel-item img {
+    margin: 20px auto; /* Dikey boşluklar ekler ve resmi yatayda ortalar */
+    max-height: 400px; /* Resmin maksimum yüksekliğini ayarlar */
+    width: 400px; /* Resmin genişliğini otomatik olarak ayarlar */
+}
+
+body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-gap: 20px;
+            padding: 20px;
+        }
+        .widget {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .widget h2 {
+            margin-top: 0;
+        }
+
+        
+</style>
+<br><br>
+<h1 class="text-center fade-in-out">TREND POSTLAR</h1>
+<div id="myCarousel" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+        {% for post in most_viewed_posts %}
+        <li data-target="#myCarousel" data-slide-to="{{ forloop.counter0 }}" {% if forloop.first %}class="active"{% endif %}></li>
+        {% endfor %}
+    </ol>
+    <div class="carousel-inner">
+        {% for post in most_viewed_posts %}
+        <div class="carousel-item {% if forloop.first %}active{% endif %}">
+            <img class="d-block w-100" src="{{ post.image.url }}" alt="{{ post.title }}">
+            <div class="carousel-caption d-none d-md-block">
+                <h5>{{ post.title }}</h5>
+                <p>{{ post.content }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+</div>
+
+<div class="dashboard">
+    <div class="widget">
+        <h2>Toplam Kullanıcı Sayısı</h2>
+        <strong class="text-center">{{ total_users }}</strong>
+    </div>
+    <div class="widget">
+        <h2>Toplam Görüntüleme Sayısı</h2>
+        <strong class="text-center">{{ total_post_readers }}</strong>
+    </div>
+    <div class="widget">
+        <h2>Toplam Post Yazarları</h2>
+        <strong class="text-center">{{ total_post_writers }}</strong>
+    </div>
+    
+</div>
+
+
+
+
+
+
+
+
+<script>
+    var slides = document.querySelectorAll('.carousel-item');
+    var currentSlide = 0;
+    var slideInterval = setInterval(nextSlide, 3000);
+
+    function nextSlide() {
+        slides[currentSlide].classList.remove('active');
+        currentSlide = (currentSlide + 1) % slides.length;
+        slides[currentSlide].classList.add('active');
+    }
+</script>
+{% endblock %}
